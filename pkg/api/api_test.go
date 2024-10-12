@@ -3,13 +3,14 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"go-news-api-gw/pkg/config"
-	"go-news-api-gw/pkg/model"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
+
+	"github.com/mstyushin/go-news-api-gw/pkg/config"
+	"github.com/mstyushin/go-news-api-gw/pkg/model"
 
 	"github.com/stretchr/testify/assert"
 )

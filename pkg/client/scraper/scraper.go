@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"go-news-api-gw/pkg/client"
-	"go-news-api-gw/pkg/model"
 	"log"
+
+	"github.com/mstyushin/go-news-api-gw/pkg/client"
+	"github.com/mstyushin/go-news-api-gw/pkg/model"
 )
 
 const (

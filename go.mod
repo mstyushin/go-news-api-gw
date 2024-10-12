@@ -1,4 +1,4 @@
-module go-news-api-gw
+module github.com/mstyushin/go-news-api-gw
 
 go 1.22.0
 

@@ -3,14 +3,15 @@ package api
 import (
 	"context"
 	"fmt"
-	"go-news-api-gw/pkg/client/comments"
-	"go-news-api-gw/pkg/client/scraper"
-	"go-news-api-gw/pkg/config"
-	"go-news-api-gw/pkg/model"
 	"log"
 	"net"
 	"net/http"
 	"sync"
+
+	"github.com/mstyushin/go-news-api-gw/pkg/client/comments"
+	"github.com/mstyushin/go-news-api-gw/pkg/client/scraper"
+	"github.com/mstyushin/go-news-api-gw/pkg/config"
+	"github.com/mstyushin/go-news-api-gw/pkg/model"
 
 	"github.com/gorilla/mux"
 )

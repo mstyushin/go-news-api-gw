@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	"go-news-api-gw/pkg/api"
-	"go-news-api-gw/pkg/config"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/mstyushin/go-news-api-gw/pkg/api"
+	"github.com/mstyushin/go-news-api-gw/pkg/config"
 
 	"k8s.io/client-go/informers/storage"
 )

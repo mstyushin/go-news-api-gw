@@ -3,10 +3,11 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"go-news-api-gw/pkg/model"
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/mstyushin/go-news-api-gw/pkg/model"
 
 	"github.com/gorilla/mux"
 )
