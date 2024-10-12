@@ -1,0 +1,64 @@
+version: "3.8"
+
+volumes:
+  postgres:
+
+services:
+  db:
+    container_name: db
+    image: postgres:15.4
+    environment:
+      - POSTGRES_DB=news
+      - POSTGRES_USER=gonews
+      - POSTGRES_PASSWORD=123
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./init-schema.sh:/docker-entrypoint-initdb.d/init-schema.sh
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+  api-gw:
+    container_name: api-gw
+    image: mstyushin/go-news-api-gw:dev
+    ports:
+      - "8080:8080"
+    command: ["/app/go-news-api-gw", "-config", "/app/config.yaml"]
+    depends_on:
+      - scraper 
+      - comments
+      - moderation
+    volumes:
+      - ./go-news-api-gw.yaml:/app/config.yaml
+  scraper:
+    restart: always
+    container_name: scraper
+    image: mstyushin/go-news-scraper:v1.0.3
+    ports:
+      - "8081:8081"
+    command: ["/app/go-news-scraper", "-config", "/app/config.yaml"]
+    depends_on:
+      - db
+    volumes:
+      - ./go-news-scraper.yaml:/app/config.yaml
+  comments:
+    restart: always
+    container_name: comments
+    image: mstyushin/go-news-comments:v1.0.2
+    ports:
+      - "8082:8082"
+    command: ["/app/go-news-comments", "-config", "/app/config.yaml"]
+    depends_on:
+      - db
+    volumes:
+      - ./go-news-comments.yaml:/app/config.yaml
+  moderation:
+    container_name: moderation
+    image: mstyushin/go-news-moderation:v1.0.1
+    ports:
+      - "8083:8083"
+    command: ["/app/go-news-moderation", "-config", "/app/config.yaml"]
+    depends_on:
+      - comments
+    volumes:
+      - ./go-news-moderation.yaml:/app/config.yaml

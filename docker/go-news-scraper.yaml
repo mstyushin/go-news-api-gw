@@ -1,0 +1,7 @@
+http_port: 8081
+request_period: 10m0s
+db_conn_string: postgres://gonews:123@db:5432/news?sslmode=disable
+rss_feeds:
+  - https://habr.com/ru/rss/hub/go/all/?fl=ru
+  - https://habr.com/ru/rss/best/daily/?fl=ru
+  - https://cprss.s3.amazonaws.com/golangweekly.com.xml

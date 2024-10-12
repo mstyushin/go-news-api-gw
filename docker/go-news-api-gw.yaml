@@ -1,0 +1,8 @@
+http_port: 8080
+base_url: http://127.0.0.1:8080
+news_scraper_address: scraper
+news_scraper_port: 8081
+comments_service_address: comments
+comments_service_port: 8082
+moderation_service_address: moderation
+moderation_service_port: 8083

@@ -1,0 +1,2 @@
+http_port: 8082
+db_conn_string: postgres://gonews:123@db:5432/news?sslmode=disable
