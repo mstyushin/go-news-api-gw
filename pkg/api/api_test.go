@@ -3,14 +3,15 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"testing"
 
 	"github.com/mstyushin/go-news-api-gw/pkg/config"
-	"github.com/mstyushin/go-news-api-gw/pkg/model"
+	scraperAPI "github.com/mstyushin/go-news-scraper/pkg/api"
+	"github.com/mstyushin/go-news-scraper/pkg/storage"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -26,24 +27,24 @@ func TestMain(m *testing.M) {
 }
 
 func TestAPI_getNews(t *testing.T) {
-	req := httptest.NewRequest("GET", fmt.Sprintf("%s/news/latest?page=1", cfg.BaseURL), nil)
-	w := httptest.NewRecorder()
-	api.mux.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusOK, w.Code)
+	req := httptest.NewRequest("GET", fmt.Sprintf("%s/news/latest", cfg.BaseURL), nil)
+	rr := httptest.NewRecorder()
 
-	resp := w.Result()
-	body, err := io.ReadAll(resp.Body)
-	assert.NoError(t, err, "cannot read response body")
+	api.mux.ServeHTTP(rr, req)
+	assert.Equal(t, http.StatusOK, rr.Code)
+	assert.True(t, rr.Header().Get("x-request-id") != "", "should populate x-request-id header")
 
-	var articles model.ArticlesShort
-	err = json.Unmarshal(body, &articles)
+	b, err := ioutil.ReadAll(rr.Body)
+	assert.NoError(t, err, "should be able to read response body")
+
+	var articles scraperAPI.PaginatedResponse
+	err = json.Unmarshal(b, &articles)
 	assert.NoError(t, err, "cannot unmarshal response body")
-
-	assert.Equal(t, fmt.Sprintf("%s/news/1", cfg.BaseURL), articles[0].LinkToFull)
+	assert.Equal(t, fmt.Sprintf("%s/news/1", cfg.BaseURL), articles.Articles[0].LinkToFull, "expecting correct link to full article")
 }
 
 func TestAPI_generateLinkToFull(t *testing.T) {
-	a := model.ArticleShort{
+	a := storage.ArticleShort{
 		ID:           1,
 		Title:        "Article 1",
 		ShortContent: "Some meaningful content",

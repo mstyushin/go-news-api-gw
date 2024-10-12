@@ -11,7 +11,7 @@ import (
 	"github.com/mstyushin/go-news-api-gw/pkg/client/comments"
 	"github.com/mstyushin/go-news-api-gw/pkg/client/scraper"
 	"github.com/mstyushin/go-news-api-gw/pkg/config"
-	"github.com/mstyushin/go-news-api-gw/pkg/model"
+	"github.com/mstyushin/go-news-scraper/pkg/storage"
 
 	"github.com/gorilla/mux"
 )
@@ -93,6 +93,6 @@ func (api *API) endpoints() {
 	api.mux.Use(LoggerMiddleware(api.mux))
 }
 
-func (api *API) generateLinkToFull(a *model.ArticleShort) {
+func (api *API) generateLinkToFull(a *storage.ArticleShort) {
 	a.LinkToFull = fmt.Sprintf("%s/news/%d", api.baseURL, a.ID)
 }

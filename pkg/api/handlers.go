@@ -7,7 +7,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/mstyushin/go-news-api-gw/pkg/model"
+	storageComments "github.com/mstyushin/go-news-comments/pkg/storage"
+	scraperAPI "github.com/mstyushin/go-news-scraper/pkg/api"
+	storageScraper "github.com/mstyushin/go-news-scraper/pkg/storage"
 
 	"github.com/gorilla/mux"
 )
@@ -29,7 +31,7 @@ func (api *API) getNews(w http.ResponseWriter, r *http.Request) {
 		pageNum, _ = strconv.Atoi(s)
 	}
 
-	var paginated model.PaginatedResponse
+	var paginated scraperAPI.PaginatedResponse
 	var err error
 
 	if r.URL.Query().Has("s") {
@@ -94,17 +96,17 @@ func (api *API) getDetailedArticle(w http.ResponseWriter, r *http.Request) {
 	wg.Wait()
 	close(results)
 
-	response := model.ArticleFullResponse{}
+	response := ArticleFullResponse{}
 
 	for data := range results {
 		switch data.(type) {
 		case error:
 			log.Println("Got error from one of the services")
 			http.Error(w, data.(error).Error(), http.StatusInternalServerError)
-		case model.ArticleFull:
-			response.Article = data.(model.ArticleFull)
-		case []model.Comment:
-			response.Comments = data.([]model.Comment)
+		case storageScraper.Article:
+			response.Article = data.(storageScraper.Article)
+		case []storageComments.Comment:
+			response.Comments = data.([]storageComments.Comment)
 		}
 	}
 
@@ -129,7 +131,7 @@ func (api *API) addComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var comment model.Comment
+	var comment storageComments.Comment
 	err = json.NewDecoder(r.Body).Decode(&comment)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
