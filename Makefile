@@ -22,7 +22,7 @@ clean: stop
 	@rm -f /tmp/$(APP_NAME).pid
 
 build:
-	@go mod tidy && go build -ldflags="-X 'go-news-api-gw/pkg/config.Version=$(VERSION)' -X 'go-news-api-gw/pkg/config.Hash=$(HASHCOMMIT)' -X 'go-news-api-gw/pkg/config.VersionDate=$(VERSIONDATE)'" -o bin/$(APP_NAME) github.com/mstyushin/go-news-api-gw/cmd/server
+	@go mod tidy && go build -ldflags="-X 'github.com/mstyushin/go-news-api-gw/pkg/config.Version=$(VERSION)' -X 'github.com/mstyushin/go-news-api-gw/pkg/config.Hash=$(HASHCOMMIT)' -X 'github.com/mstyushin/go-news-api-gw/pkg/config.VersionDate=$(VERSIONDATE)'" -o bin/$(APP_NAME) github.com/mstyushin/go-news-api-gw/cmd/server
 	@chmod +x bin/$(APP_NAME)
 
 run: build

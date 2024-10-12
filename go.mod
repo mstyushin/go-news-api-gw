@@ -7,8 +7,8 @@ toolchain go1.22.5
 require (
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/mux v1.8.1
-	github.com/mstyushin/go-news-comments v1.0.1
-	github.com/mstyushin/go-news-scraper v1.0.2
+	github.com/mstyushin/go-news-comments v1.0.2
+	github.com/mstyushin/go-news-scraper v1.0.3
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/yaml.v2 v2.4.0
 	k8s.io/client-go v0.31.1

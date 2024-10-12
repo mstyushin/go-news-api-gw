@@ -71,10 +71,10 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
-github.com/mstyushin/go-news-comments v1.0.1 h1:V0LBgNlICtiiq/VigLe9hEGK958fAz6Eya5jvDWblDc=
-github.com/mstyushin/go-news-comments v1.0.1/go.mod h1:jvrt/RDHGaJ3z9cxY20U1o+1EDa8Se5QTq4mL509rjk=
-github.com/mstyushin/go-news-scraper v1.0.2 h1:N6ma/5MUc1BkXSrh8xfeg8c53Akwxicvd0VU4zXMxm8=
-github.com/mstyushin/go-news-scraper v1.0.2/go.mod h1:Zkjguyz4pmNhky273PGzEp7PHJj7+nsp/a1k+Bo1omk=
+github.com/mstyushin/go-news-comments v1.0.2 h1:wsg5oxDUlceWwurSRaQGAdtjV2+qyuVTkix7SX1Gw5w=
+github.com/mstyushin/go-news-comments v1.0.2/go.mod h1:jvrt/RDHGaJ3z9cxY20U1o+1EDa8Se5QTq4mL509rjk=
+github.com/mstyushin/go-news-scraper v1.0.3 h1:lhjqyL9h5ou3uZcsVD3XHBRFXyBGff/YbewKtfBrFDY=
+github.com/mstyushin/go-news-scraper v1.0.3/go.mod h1:Zkjguyz4pmNhky273PGzEp7PHJj7+nsp/a1k+Bo1omk=
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 h1:C3w9PqII01/Oq1c1nUAm88MOHcQC9l5mIlSMApZMrHA=
 github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8mK8HuQTcFwEeznm/DIxMOiR9yIdICNftLE1DvQ=
 github.com/onsi/ginkgo/v2 v2.19.0 h1:9Cnnf7UHo57Hy3k6/m5k3dRfGTMXGvxhHFvkDTCTpvA=
