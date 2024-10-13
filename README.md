@@ -112,53 +112,74 @@ go-news-scraper). В каждом объекте статьи из списка 
 ## Требования
 
 -   golang 1.22
-
 -   docker >=23.0
 
 ---
 
 Просмотр конфигурации по-умолчанию:
 
-        $ make build
-        $ ./bin/go-news-api-gw -print-config
+    $ make build
+    $ ./bin/go-news-api-gw -print-config
 
 ---
 
 Для быстрого запуска с конфигом по-умолчанию:
 
-        $ make run
+    $ make run
 
 Сервер будет запущен на `127.0.0.1:8080`. 
 
 Логи будут писаться сюда:
 
-        $ tail -f log/go-news-api-gw.log
+    $ tail -f log/go-news-api-gw.log
 
 ---
 
 Запуск сервера с конфигурацией из файла `config.yaml`:
 
-        $ ./bin/go-news-api-gw -config config.yaml
+    $ ./bin/go-news-api-gw -config config.yaml
 
 ---
 
 Остановить сервер:
 
-        $ make clean
+    $ make clean
 
 ---
 
 Показать версию сборки:
 
-        $ ./bin/go-news-api-gw -version
+    $ ./bin/go-news-api-gw -version
 
 ## Примеры тестовых запросов
 
-        $ curl "http://127.0.0.1:8080/news/latest"
-        $ curl -v -XPOST "http://127.0.0.1:8080/news/1?c=true" -d '{"Author": "Bob", "Text": "bla bla bla"}'
-        $ curl -v -XPOST "http://127.0.0.1:8080/news/345?c=true" -d '{"Author": "Alice", "Text": "something qwerty"}'
-        $ curl "http://127.0.0.1:8080/news/latest?page_size=3&page=29"
-        $ curl "http://127.0.0.1:8080/news/latest?s=TCP&page_size=10&page=1"
+    $ curl "http://127.0.0.1:8080/news/latest"
+    $ curl -v -XPOST "http://127.0.0.1:8080/news/1?c=true" -d '{"Author": "Bob", "Text": "bla bla bla"}'
+    $ curl -v -XPOST "http://127.0.0.1:8080/news/345?c=true" -d '{"Author": "Alice", "Text": "something qwerty"}'
+    $ curl "http://127.0.0.1:8080/news/latest?page_size=3&page=29"
+    $ curl "http://127.0.0.1:8080/news/latest?s=TCP&page_size=10&page=1"
 
 ## Docker
-TODO
+Для удобства все сервисы пакуются в docker-образы и публикуются на Dockerhub автоматически при появлении нового тэга вида `v*` (напр. v1.1.2) в репозиториях. 
+Имеется [компоуз файлик](docker/docker-compose.yaml), с которым можно быстро поднять весь стек сервисов локально:
+
+    $ cd docker && docker compose up -d
+
+Сервсы будут доступны на:
+-   http://127.0.0.1:8080 - API Gateway
+-   http://127.0.0.1:8081 - News Scraper
+-   http://127.0.0.1:8082 - Comments
+-   http://127.0.0.1:8083 - Moderation
+
+#### возможные проблемы
+-   при первом запуске Postgres может не успеть проинициализироваться и какие-то сервисы грохнутся. Простой `docker compose down && docker compose up -d` помогает.
+-   что-то не поднимется, если какой-то из используемых контейнерами портов занят: `5432, 8080, 8081, 8082, 8083`.
+-   контейнер с базой создаёт data-директорию в `docker/postgres-data`, контейнер не rootless и права на директории будут `999:0`, т.е. как минимум удалять её надо будет через `sudo rm -rf`.
+-   понятия не имею будет ли это работать на Windows, теоретически не должно быть проблем.
+
+# Тесты
+На данный момент есть лишь некоторая заготовка для end-to-end тестов, запускать их следует с поднятыми внутренними сервисами (moderation, comments, scraper). 
+
+Для прогона:
+
+    $ make e2e-test
