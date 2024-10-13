@@ -20,7 +20,7 @@ services:
       - "5432:5432"
   api-gw:
     container_name: api-gw
-    image: mstyushin/go-news-api-gw:dev
+    image: mstyushin/go-news-api-gw
     ports:
       - "8080:8080"
     command: ["/app/go-news-api-gw", "-config", "/app/config.yaml"]
@@ -33,7 +33,7 @@ services:
   scraper:
     restart: always
     container_name: scraper
-    image: mstyushin/go-news-scraper:v1.0.3
+    image: mstyushin/go-news-scraper
     ports:
       - "8081:8081"
     command: ["/app/go-news-scraper", "-config", "/app/config.yaml"]
@@ -44,7 +44,7 @@ services:
   comments:
     restart: always
     container_name: comments
-    image: mstyushin/go-news-comments:v1.0.2
+    image: mstyushin/go-news-comments
     ports:
       - "8082:8082"
     command: ["/app/go-news-comments", "-config", "/app/config.yaml"]
@@ -54,7 +54,7 @@ services:
       - ./go-news-comments.yaml:/app/config.yaml
   moderation:
     container_name: moderation
-    image: mstyushin/go-news-moderation:v1.0.1
+    image: mstyushin/go-news-moderation
     ports:
       - "8083:8083"
     command: ["/app/go-news-moderation", "-config", "/app/config.yaml"]
